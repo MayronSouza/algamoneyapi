@@ -1,6 +1,7 @@
 package com.algamoney.api.token;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -30,7 +31,8 @@ public class RefreshTokenPreProcessorFilter implements Filter {
 		
 		// compara duas strings ignorando o case sensitive
 		if("/oauth/token".equalsIgnoreCase(req.getRequestURI())) {
-			String refreshToken = Stream.of(req.getCookies())// transforma o array de cookies em stream
+			String refreshToken = Stream.ofNullable(req.getCookies())// Retorna um Stream do array, se estiver nulo, um Stream vazio será retornado
+				.flatMap(Arrays::stream)// Como estamos tratando, ainda, do array, precisamos torná-lo flat para acessar os elementos do array
 				.filter(cookie -> "refreshToken".equals(cookie.getName()))// filtra os dados do Stream tranzendo somente refreshTonken
 				.findFirst()// obtém o 1º objeto do Stream, caso exista
 				.map(cookie -> cookie.getValue())// transforma de Stream pra String

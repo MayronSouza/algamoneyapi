@@ -23,6 +23,7 @@ import com.algamoney.api.model.Pessoa_;
 import com.algamoney.api.repository.filter.LancamentoFilter;
 import com.algamoney.api.repository.projection.ResumoLancamento;
 
+
 public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 
 	@PersistenceContext
